@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D94FFB93-8AB1-4BDF-8281-4D3D782D990C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MyDatabase.BLL</RootNamespace>
+    <AssemblyName>MyDatabase.BLL</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BaseService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SpendTypeService.cs" />
+    <Compile Include="SpendService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\MDORM\MDORM.DapperExt\MDORM.DapperExt.csproj">
+      <Project>{5f539a86-8f2b-4fe7-93d6-42459d6f6bcd}</Project>
+      <Name>MDORM.DapperExt</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyDatabase.DALContainer\MyDatabase.DALContainer.csproj">
+      <Project>{f1142b50-9fae-4f4c-a5d8-935d93154216}</Project>
+      <Name>MyDatabase.DALContainer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyDatabase.IBLL\MyDatabase.IBLL.csproj">
+      <Project>{ec292624-7b1f-48eb-a91c-ebe6775d81e9}</Project>
+      <Name>MyDatabase.IBLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyDatabase.Model\MyDatabase.Model.csproj">
+      <Project>{9fee621a-8d56-4b52-9698-5d0b76785bcb}</Project>
+      <Name>MyDatabase.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyDatabse.IDAL\MyDatabase.IDAL.csproj">
+      <Project>{9eb6d192-7969-445f-8eff-3238b4061c71}</Project>
+      <Name>MyDatabase.IDAL</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
