@@ -1,7 +1,9 @@
-﻿using MDORM.DapperExt;
+﻿using AutoMapper;
+using MDORM.DapperExt;
 using MyDatabase.IBLL;
 using MyDatabase.IDAL;
 using MyDatabase.Model;
+using MyDatabase.Model.VModel.Spend;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,6 +42,37 @@ namespace MyDatabase.BLL
         public bool DeleteById(object primaryId)
         {
             return SpendTypeDAL.DeleteById(primaryId);
+        }
+
+        public List<SpendTypeIndexOutput> GetPage_SpendTypeIndexOutput(int pageIndex, int pageSize, out int allRowsCount)
+        {
+            var model = GetPage(pageIndex, pageSize, out allRowsCount);
+            return Mapper.Map<List<SpendTypeIndexOutput>>(model);
+        }
+
+        public object Create_SpendTypeCreateInput(SpendTypeCreateInput vmodel)
+        {
+            var model = Mapper.Map<SpendType>(vmodel);
+            return Dal.Insert(model);
+        }
+
+        public SpendTypeDetailOutput Get_SpendTypeDetailInput(SpendTypeDetailInput vmodel)
+        {
+            var model = Mapper.Map<SpendType>(vmodel);
+            var model1 = Dal.GetById(model.ID);
+            return Mapper.Map<SpendTypeDetailOutput>(model1);
+        }
+
+        public bool Edit_SpendTypeEditInput(SpendTypeEditInput vmodel)
+        {
+            var model = Mapper.Map<SpendType>(vmodel);
+            return Dal.Update(model);
+        }
+
+        public bool Delete_SpendTypeDeleteInput(SpendTypeDeleteInput vmodel)
+        {
+            var model = Mapper.Map<SpendType>(vmodel);
+            return DeleteById(model.ID);
         }
     }
 }

@@ -39,7 +39,7 @@ namespace MyDatabase.Model
         }
 
         /// <summary>
-        /// 花费类型
+        /// 花费类型名称
         /// </summary>
         public string TypeName
         {
