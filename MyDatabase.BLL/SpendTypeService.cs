@@ -15,6 +15,7 @@ namespace MyDatabase.BLL
     public partial class SpendTypeService : BaseService<SpendType>, ISpendTypeService
     {
         private ISpendTypeDAL SpendTypeDAL = DALContainer.Container.Resolve<ISpendTypeDAL>();
+        private ISpendDAL SpendDAL = DALContainer.Container.Resolve<ISpendDAL>();
         public override void SetDal()
         {
             Dal = SpendTypeDAL;
@@ -50,9 +51,30 @@ namespace MyDatabase.BLL
             return Mapper.Map<List<SpendTypeIndexOutput>>(model);
         }
 
+        public bool IsExist(SpendType model, object primaryId = null)
+        {
+            var pga = new PredicateGroup() { Operator = GroupOperator.And, Predicates = new List<IPredicate>() };
+            pga.Predicates.Add(Predicates.Field<SpendType>(f => f.TypeName, Operator.Eq, model.TypeName));
+            if (primaryId != null)
+            {
+                pga.Predicates.Add(Predicates.Field<SpendType>(f => f.ID, Operator.Eq, primaryId, true));
+            }
+            return Dal.GetList(pga).Count > 0;
+        }
+
+        public bool HasBindOthers(object primaryId)
+        {
+            var pd = Predicates.Field<Spend>(f => f.SpendType, Operator.Eq, primaryId);
+            return SpendDAL.GetList(pd).Count > 0;
+        }
+
         public object Create_SpendTypeCreateInput(SpendTypeCreateInput vmodel)
         {
             var model = Mapper.Map<SpendType>(vmodel);
+            if(IsExist(model))
+            {
+                throw new Exception("数据重复！");
+            }
             return Dal.Insert(model);
         }
 
@@ -66,12 +88,20 @@ namespace MyDatabase.BLL
         public bool Edit_SpendTypeEditInput(SpendTypeEditInput vmodel)
         {
             var model = Mapper.Map<SpendType>(vmodel);
+            if (IsExist(model, model.ID))
+            {
+                throw new Exception("数据重复！");
+            }
             return Dal.Update(model);
         }
 
         public bool Delete_SpendTypeDeleteInput(SpendTypeDeleteInput vmodel)
         {
             var model = Mapper.Map<SpendType>(vmodel);
+            if(HasBindOthers(model.ID))
+            {
+                throw new Exception("存在关联数据！");
+            }
             return DeleteById(model.ID);
         }
     }

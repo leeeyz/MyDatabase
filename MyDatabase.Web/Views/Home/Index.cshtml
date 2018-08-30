@@ -75,7 +75,7 @@
                     </el-pagination>
                 </el-row>
                 <div>
-                    <el-dialog v-bind:title="formTitle" v-bind:visible.sync="formOpen">
+                    <el-dialog v-bind:title="formTitle" v-bind:visible.sync="formOpen" v-on:close="formClose">
                         <el-form v-bind:model="model" v-bind:rules="rules" ref="form" label-position="left" label-width="120px">
                             <el-form-item label="ID" prop="ID">
                                 <el-input v-model="model.ID" v-bind:disabled="true"></el-input>

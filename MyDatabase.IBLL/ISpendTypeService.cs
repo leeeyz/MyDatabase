@@ -31,6 +31,10 @@ namespace MyDatabase.IBLL
 
         List<SpendTypeIndexOutput> GetPage_SpendTypeIndexOutput(int pageIndex, int pageSize, out int allRowsCount);
 
+        bool IsExist(SpendType model, object primaryId = null);
+
+        bool HasBindOthers(object primaryId);
+
         object Create_SpendTypeCreateInput(SpendTypeCreateInput vmodel);
 
         SpendTypeDetailOutput Get_SpendTypeDetailInput(SpendTypeDetailInput vmodel);

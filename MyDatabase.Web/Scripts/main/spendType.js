@@ -161,8 +161,10 @@
             });
         },
         cancel: function () {
-            this.$refs.form.resetFields();
             this.formOpen = false;
+        },
+        formClose: function () {
+            this.$refs.form.resetFields();
         },
     },
 };
