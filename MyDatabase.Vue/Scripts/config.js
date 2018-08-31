@@ -1,0 +1,1 @@
+﻿var serverUrl = "http://localhost:54076/";
