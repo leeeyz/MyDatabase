@@ -19,6 +19,13 @@ namespace MyDatabase.WebAPI.App_Start
                 cfg.CreateMap<SpendType, Model.VModel.Spend.SpendTypeDetailOutput>();
                 cfg.CreateMap<Model.VModel.Spend.SpendTypeEditInput, SpendType>();
                 cfg.CreateMap<Model.VModel.Spend.SpendTypeDeleteInput, SpendType>();
+
+                cfg.CreateMap<Spend, Model.VModel.Spend.SpendIndexOutput>();
+                cfg.CreateMap<Model.VModel.Spend.SpendCreateInput, Spend>();
+                cfg.CreateMap<Model.VModel.Spend.SpendDetailInput, Spend>();
+                cfg.CreateMap<Spend, Model.VModel.Spend.SpendDetailOutput>();
+                cfg.CreateMap<Model.VModel.Spend.SpendEditInput, Spend>();
+                cfg.CreateMap<Model.VModel.Spend.SpendDeleteInput, Spend>();
             });
         }
     }

@@ -7,21 +7,13 @@ using System.Threading.Tasks;
 
 namespace MyDatabase.Model.VModel.Spend
 {
-    public class SpendTypeDetailOutput
+    public class SpendDetailInput
     {
         /// <summary>
         /// ID
         /// </summary>
+        [Required]
         public int? ID
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// 花费类型名称
-        /// </summary>
-        public string TypeName
         {
             get;
             set;

@@ -44,11 +44,17 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Spend.cs" />
     <Compile Include="SpendType.cs" />
+    <Compile Include="VModel\Spend\SpendCreateInput.cs" />
+    <Compile Include="VModel\Spend\SpendDeleteInput.cs" />
     <Compile Include="VModel\Spend\SpendTypeDeleteInput.cs" />
+    <Compile Include="VModel\Spend\SpendDetailInput.cs" />
     <Compile Include="VModel\Spend\SpendTypeDetailInput.cs" />
+    <Compile Include="VModel\Spend\SpendDetailOutput.cs" />
+    <Compile Include="VModel\Spend\SpendEditInput.cs" />
     <Compile Include="VModel\Spend\SpendTypeEditInput.cs" />
     <Compile Include="VModel\Spend\SpendTypeDetailOutput.cs" />
     <Compile Include="VModel\Spend\SpendTypeCreateInput.cs" />
+    <Compile Include="VModel\Spend\SpendIndexOutput.cs" />
     <Compile Include="VModel\Spend\SpendTypeIndexOutput.cs" />
   </ItemGroup>
   <ItemGroup>

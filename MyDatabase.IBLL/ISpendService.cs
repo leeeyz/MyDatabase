@@ -1,5 +1,6 @@
 ﻿using MDORM.DapperExt;
 using MyDatabase.Model;
+using MyDatabase.Model.VModel.Spend;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,5 +28,15 @@ namespace MyDatabase.IBLL
         /// <param name="primaryId">主键</param>
         /// <returns></returns>
         bool DeleteById(object primaryId);
+
+        List<SpendIndexOutput> GetPage_SpendIndexOutput(int pageIndex, int pageSize, out int allRowsCount, string spendDateFrom, string spendDateTo, string spendTypes);
+
+        object Create_SpendCreateInput(SpendCreateInput vmodel);
+
+        SpendDetailOutput Get_SpendDetailInput(SpendDetailInput vmodel);
+
+        bool Edit_SpendEditInput(SpendEditInput vmodel);
+
+        bool Delete_SpendDeleteInput(SpendDeleteInput vmodel);
     }
 }

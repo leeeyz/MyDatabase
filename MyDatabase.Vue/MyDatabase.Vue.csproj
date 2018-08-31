@@ -79,7 +79,9 @@
   <ItemGroup>
     <Content Include="Content\ElementUI\element-ui.css" />
     <Content Include="Content\view\home\main.css" />
+    <Content Include="Scripts\common.js" />
     <Content Include="Scripts\config.js" />
+    <Content Include="Scripts\view\home\index.js" />
     <Content Include="View\Home.html" />
     <Content Include="Scripts\axios.js" />
     <Content Include="Scripts\axios.min.js" />

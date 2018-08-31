@@ -33,7 +33,7 @@ namespace MyDatabase.Model
 
         #region 属性
         /// <summary>
-        /// 主键
+        /// ID
         /// </summary>
         public int? ID
         {

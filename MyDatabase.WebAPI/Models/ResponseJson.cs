@@ -49,4 +49,18 @@ namespace MyDatabase.WebAPI.Models
 
         public object VModel { get; }
     }
+
+    /// <summary>
+    /// 返回用于下拉框
+    /// </summary>
+    public class ResponseSelectItems : ResponseJson
+    {
+        public ResponseSelectItems(bool isSuccess = true, string msg = "", List<KeyValuePair<int, string>> selectItems = null)
+            : base(isSuccess, msg)
+        {
+            this.SelectItems = selectItems;
+        }
+
+        public List<KeyValuePair<int,string>> SelectItems { get; }
+    }
 }

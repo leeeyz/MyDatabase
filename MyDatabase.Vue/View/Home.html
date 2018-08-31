@@ -20,16 +20,14 @@
         <el-container>
             <el-header id="main-el-header">leeeyz的系统</el-header>
             <el-container>
-                <el-aside id="main-el-aside">
-                    <el-menu id="main-el-menu" background-color="#303133" text-color="#C0C4CC" v-bind:router="true">
-                        <el-menu-item index="spendType">
-                            <i class="el-icon-document"></i>
-                            <span slot="title">花费类型</span>
-                        </el-menu-item>
-                        <el-menu-item index="spend">
-                            <i class="el-icon-document"></i>
-                            <span slot="title">花费明细</span>
-                        </el-menu-item>
+                <el-aside id="main-el-aside" width="250px">
+                    <el-menu id="main-el-menu" background-color="#303133" text-color="#C0C4CC" router v-bind:default-active="$route.path">
+                        <template v-for="(item, index) in $router.options.routes">
+                            <el-menu-item :index="item.path">
+                                <i v-bind:class="item.icon"></i>
+                                <span slot="title">{{item.title}}</span>
+                            </el-menu-item>
+                        </template>
                     </el-menu>
                 </el-aside>
                 <el-main id="main-el-main">
@@ -43,6 +41,12 @@
             <el-footer id="main-el-footer">copy right@leeeyz</el-footer>
         </el-container>
 
+        <script type="text/x-template" id="index">
+            <div>
+                <p>index</p>
+            </div>
+        </script>
+
         <script type="text/x-template" id="spendType">
             <div>
                 <el-row>
@@ -53,9 +57,9 @@
                 </el-row>
                 <el-row>
                     <el-col v-bind:span="24">
-                        <el-table v-bind:data="tableData" stripe border>
+                        <el-table size="small" v-bind:data="tableData" stripe border>
                             <el-table-column type="index" width="60"></el-table-column>
-                            <el-table-column prop="ID" label="ID" width="180"></el-table-column>
+                            <el-table-column prop="ID" label="ID" width="60"></el-table-column>
                             <el-table-column prop="TypeName" label="花费类型名称"></el-table-column>
                             <el-table-column label="操作" width="200">
                                 <template slot-scope="scope">
@@ -67,13 +71,13 @@
                     </el-col>
                 </el-row>
                 <el-row>
-                    <el-pagination v-bind:current-Page="pageIndex" v-bind:page-size="pageSize" v-bind:total="total" v-bind:page-sizes="pageSizes"
+                    <el-pagination size="small" v-bind:current-Page="pageIndex" v-bind:page-size="pageSize" v-bind:total="total" v-bind:page-sizes="pageSizes"
                                    layout="total,sizes,prev,pager,next,jumper" v-on:size-change="sizeChange" v-on:current-change="pageIndexChange">
                     </el-pagination>
                 </el-row>
                 <div>
                     <el-dialog v-bind:title="formTitle" v-bind:visible.sync="formOpen" v-on:close="formClose">
-                        <el-form v-bind:model="model" v-bind:rules="rules" ref="form" label-position="left" label-width="120px">
+                        <el-form size="small" v-bind:model="model" v-bind:rules="rules" ref="form" label-position="right" label-width="120px">
                             <el-form-item label="ID" prop="ID">
                                 <el-input v-model="model.ID" v-bind:disabled="true"></el-input>
                             </el-form-item>
@@ -91,12 +95,84 @@
         </script>
 
         <script type="text/x-template" id="spend">
-
+            <div>
+                <el-row>
+                    <el-col v-bind:span="24">
+                        花费时间：
+                        <el-date-picker size="small" v-model="dateFromTo" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"
+                                        value-format="yyyy-MM-dd"></el-date-picker>
+                        花费类型：
+                        <el-select size="small" v-model="spendTypes" placeholder="请选择" clearable="true" multiple="true">
+                            <el-option v-for="item in spendTypeSelectItems" v-bind:key="item.Value" v-bind:label="item.Value" v-bind:value="item.Key">
+                            </el-option>
+                        </el-select>
+                        <el-button type="primary" size="small" icon="el-icon-search" v-on:click="query">查询</el-button>
+                        <el-button type="primary" size="small" icon="el-icon-plus" v-on:click="add">增加</el-button>
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <el-col v-bind:span="24">
+                        <el-table size="small" v-bind:data="tableData" stripe border>
+                            <el-table-column type="index" width="60"></el-table-column>
+                            <el-table-column prop="ID" label="ID" width="60"></el-table-column>
+                            <el-table-column prop="SpendFeeFormat" label="花费" width="100"></el-table-column>
+                            <el-table-column prop="SpendDateFormat" label="花费时间" width="100"></el-table-column>
+                            <el-table-column prop="SpendTypeFormat" label="花费类型" width="100"></el-table-column>
+                            <el-table-column prop="Remark" label="备注"></el-table-column>
+                            <el-table-column label="操作" width="200">
+                                <template slot-scope="scope">
+                                    <el-button size="small" type="warning" icon="el-icon-edit" v-on:click="edit(scope.row)">修改</el-button>
+                                    <el-button size="small" type="danger" icon="el-icon-delete" v-on:click="del(scope.row)">删除</el-button>
+                                </template>
+                            </el-table-column>
+                        </el-table>
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <el-pagination size="small" v-bind:current-Page="pageIndex" v-bind:page-size="pageSize" v-bind:total="total" v-bind:page-sizes="pageSizes"
+                                   layout="total,sizes,prev,pager,next,jumper" v-on:size-change="sizeChange" v-on:current-change="pageIndexChange">
+                    </el-pagination>
+                </el-row>
+                <div>
+                    <el-dialog v-bind:title="formTitle" v-bind:visible.sync="formOpen" v-on:close="formClose">
+                        <el-form size="small" v-bind:model="model" v-bind:rules="rules" ref="form" label-position="right" label-width="120px">
+                            <el-form-item label="ID" prop="ID">
+                                <el-input v-model="model.ID" v-bind:disabled="true"></el-input>
+                            </el-form-item>
+                            <el-form-item label="花费" prop="SpendFee">
+                                <el-input v-model.number="model.SpendFee">
+                                    <template slot="append">
+                                        元
+                                    </template>
+                                </el-input>
+                            </el-form-item>
+                            <el-form-item label="花费时间" prop="SpendDate">
+                                <el-date-picker type="date" v-model="model.SpendDate" placeholder="请选择" v-bind:clearable="false" value-format="yyyy-MM-dd"></el-date-picker>
+                            </el-form-item>
+                            <el-form-item label="花费类型" prop="SpendType">
+                                <el-select v-model="model.SpendType" placeholder="请选择">
+                                    <el-option v-for="item in spendTypeSelectItems" v-bind:key="item.Value" v-bind:label="item.Value" v-bind:value="item.Key">
+                                    </el-option>
+                                </el-select>
+                            </el-form-item>
+                            <el-form-item label="备注" prop="Remark">
+                                <el-input type="textarea" v-bind:rows="3" v-model="model.Remark"></el-input>
+                            </el-form-item>
+                            <el-form-item>
+                                <el-button type="success" v-on:click="save">确定</el-button>
+                                <el-button type="warning" v-on:click="cancel">取消</el-button>
+                            </el-form-item>
+                        </el-form>
+                    </el-dialog>
+                </div>
+            </div>
         </script>
 
     </div>
 
+    <script src="../Scripts/common.js"></script>
     <script src="/Scripts/config.js"></script>
+    <script src="../Scripts/view/home/index.js"></script>
     <script src="/Scripts/view/home/main.js"></script>
     <script src="/Scripts/view/home/spendType.js"></script>
     <script src="/Scripts/view/home/spend.js"></script>

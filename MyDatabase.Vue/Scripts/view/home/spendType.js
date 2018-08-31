@@ -29,8 +29,8 @@
             var _this = this;
             axios.get(serverUrl + "api/Spend/SpendTypeIndex", {
                 params: {
-                    'pageIndex': this.pageIndex - 1,
-                    'pageSize': this.pageSize
+                    "pageIndex": this.pageIndex - 1,
+                    "pageSize": this.pageSize
                 }
             })
                 .then(function (response) {
