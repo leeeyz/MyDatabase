@@ -2,7 +2,6 @@
     var vm = new Vue({
         el: "#app",
         data: {
-            selectedMenuItem: null,
         },
         router: new VueRouter({
             routes: [
