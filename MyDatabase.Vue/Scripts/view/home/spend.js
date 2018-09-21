@@ -6,6 +6,7 @@
             spendTypeSelectItems: [],
             spendTypes: [],
             tableData: [],
+            queryLoading: false,
             pageIndex: 1,
             pageSize: 10,
             total: 0,
@@ -29,6 +30,7 @@
                 ],
             },
             isAdd: true,
+            saveLoading: false,
         }
     },
     created: function () {
@@ -53,6 +55,7 @@
         },
         query: function () {
             var _this = this;
+            _this.queryLoading = true;
             axios.get(serverUrl + "api/Spend/SpendIndex", {
                 params: {
                     "pageIndex": this.pageIndex - 1,
@@ -63,6 +66,7 @@
                 }
             })
                 .then(function (response) {
+                    _this.queryLoading = false;
                     if (response.data.IsSuccess) {
                         _this.total = response.data.Total;
                         _this.tableData = response.data.Rows;
@@ -72,6 +76,7 @@
                     }
                 })
                 .catch(function (error) {
+                    _this.queryLoading = false;
                     _this.$message.error(error.message);
                 });
         },
@@ -145,9 +150,11 @@
             var vmodel = JSON.parse(JSON.stringify(_this.model));
             this.$refs.form.validate(function (valid) {
                 if (valid) {
+                    _this.saveLoading = true;
                     if (_this.isAdd) {
                         axios.post(serverUrl + "api/Spend/SpendCreate", vmodel)
                             .then(function (response) {
+                                _this.saveLoading = false;
                                 if (response.data.IsSuccess) {
                                     _this.$message({
                                         message: "增加成功！",
@@ -161,12 +168,14 @@
                                 }
                             })
                             .catch(function (error) {
+                                _this.saveLoading = false;
                                 _this.$message.error(error.message);
                             });
                     }
                     else {
                         axios.post(serverUrl + "api/Spend/SpendEdit", vmodel)
                             .then(function (response) {
+                                _this.saveLoading = false;
                                 if (response.data.IsSuccess) {
                                     _this.$message({
                                         message: "修改成功！",
@@ -179,6 +188,7 @@
                                 }
                             })
                             .catch(function (error) {
+                                _this.saveLoading = false;
                                 _this.$message.error(error.message);
                             });
                     }

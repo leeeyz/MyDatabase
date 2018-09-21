@@ -57,7 +57,7 @@
                 </el-row>
                 <el-row>
                     <el-col v-bind:span="24">
-                        <el-table size="small" v-bind:data="tableData" stripe border>
+                        <el-table size="small" v-bind:data="tableData" stripe border v-loading="queryLoading">
                             <el-table-column type="index" width="60"></el-table-column>
                             <el-table-column prop="ID" label="ID" width="60"></el-table-column>
                             <el-table-column prop="TypeName" label="花费类型名称"></el-table-column>
@@ -77,7 +77,7 @@
                 </el-row>
                 <div>
                     <el-dialog v-bind:title="formTitle" v-bind:visible.sync="formOpen" v-on:close="formClose">
-                        <el-form size="small" v-bind:model="model" v-bind:rules="rules" ref="form" label-position="right" label-width="120px">
+                        <el-form size="small" v-bind:model="model" v-bind:rules="rules" ref="form" label-position="right" label-width="120px" v-loading="saveLoading">
                             <el-form-item label="ID" prop="ID">
                                 <el-input v-model="model.ID" v-bind:disabled="true"></el-input>
                             </el-form-item>
@@ -112,7 +112,7 @@
                 </el-row>
                 <el-row>
                     <el-col v-bind:span="24">
-                        <el-table size="small" v-bind:data="tableData" stripe border>
+                        <el-table size="small" v-bind:data="tableData" stripe border v-loading="queryLoading">
                             <el-table-column type="index" width="60"></el-table-column>
                             <el-table-column prop="ID" label="ID" width="60"></el-table-column>
                             <el-table-column prop="SpendFeeFormat" label="花费" width="100"></el-table-column>
@@ -135,7 +135,7 @@
                 </el-row>
                 <div>
                     <el-dialog v-bind:title="formTitle" v-bind:visible.sync="formOpen" v-on:close="formClose">
-                        <el-form size="small" v-bind:model="model" v-bind:rules="rules" ref="form" label-position="right" label-width="120px">
+                        <el-form size="small" v-bind:model="model" v-bind:rules="rules" ref="form" label-position="right" label-width="120px" v-loading="saveLoading">
                             <el-form-item label="ID" prop="ID">
                                 <el-input v-model="model.ID" v-bind:disabled="true"></el-input>
                             </el-form-item>
