@@ -23,7 +23,7 @@
                     { type: "number", required: true, message: "花费必须为数值" }
                 ],
                 SpendDate: [
-                    { type: "date", required: true, message: "请选择花费时间", trigger: "change" }
+                    { type: "string", required: true, message: "请选择花费时间", trigger: "change" }
                 ],
                 SpendType: [
                     { required: true, message: '请选择花费类型', trigger: "change" }
@@ -94,7 +94,7 @@
             this.model = {
                 ID: "*",
                 SpendFee: 0,
-                SpendDate: new Date(getDate()),
+                SpendDate: getDate(),
                 SpendType: this.spendTypeSelectItems.length > 0 ? this.spendTypeSelectItems[0].Key : "",
                 Remark: "",
             };
@@ -109,7 +109,7 @@
                         _this.formTitle = "修改";
                         _this.formOpen = true;
                         _this.model = response.data.VModel;
-                        _this.model.SpendDate = new Date(_this.model.SpendDate)
+                        _this.model.SpendDate = _this.model.SpendDate;
                         _this.isAdd = false;
                     }
                     else {
